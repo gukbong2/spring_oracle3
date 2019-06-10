@@ -11,9 +11,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  <insert id="insert">
  	INSERT INTO TBL_BOARD (BNO, TITLE, CONTENT, WRITER) 
- 	VALUES (SEQ_BOARD.NEXTVAL, #{title}, #{content}, #{writer})
+ 		VALUES (SEQ_BOARD.NEXTVAL, #{title}, #{content}, #{writer})
  </insert>
  
+ 
+ <!-- @SelectKey를 이용하는 방식은 SQL을 한 번 더 실행하는 부담이 있기는 하지만, 자동으로 추가되는 PK 값을 확인해야 하는 상황에서 사용한다. -->
  <insert id="insertSelectKey">
  	<selectKey keyProperty="bno" order="BEFORE" resultType="long">
  		SELECT SEQ_BOARD.NEXTVAL FROM DUAL
@@ -23,6 +25,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	VALUES (#{bno}, #{title}, #{content}, #{writer})
  </insert>
  
+ <select id="read" resultType="org.zerock.domain.BoardVO">
+ 	SELECT * FROM TBL_BOARD WHERE BNO = #{bno}
+ </select>
+ 
+ <delete id="delete">
+ 	DELETE TBL_BOARD WHERE BNO = #{bno}
+ </delete>
+ 
+ <update id="update">
+ 	UPDATE TBL_BOARD SET TITLE = #{title}, CONTENT = #{content}, WRITER = #{writer}, UPDATEDATE = SYSDATE
+ 		WHERE BNO = #{bno}
+ </update>
  
  
  </mapper>
