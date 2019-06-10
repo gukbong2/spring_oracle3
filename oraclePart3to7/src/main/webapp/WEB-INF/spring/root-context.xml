@@ -33,5 +33,7 @@
 
 	<context:component-scan
 		base-package="org.zerock.sample"></context:component-scan>
-
+	
+	<mybatis-spring:scan base-package="org.zerock.mapper"/>
+	
 </beans>
