@@ -24,8 +24,8 @@ public class JDBCTests {
 	@Test
 	public void testConnection() {
 
-		try (Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "book_ex",
-				"1234")) {
+		try (Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "book_ex",
+				"book_ex")) {
 
 			log.info(con);
 		} catch (Exception e) {

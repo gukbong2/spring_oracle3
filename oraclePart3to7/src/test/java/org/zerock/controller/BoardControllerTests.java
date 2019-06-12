@@ -21,7 +21,6 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml",
 		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
-
 @Log4j
 public class BoardControllerTests {
 	
@@ -45,16 +44,16 @@ public class BoardControllerTests {
 //				.getModelMap());
 //		}
 		
-//	@Test
-//	public void testRegister() throws Exception {
-//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/register")
-//				.param("title", "컨트롤러테스트 새 글 등록")
-//				.param("content", "컨트롤러테스트 내용 등록")
-//				.param("writer", " 방국봉")
-//				).andReturn().getModelAndView().getViewName();
-//		
-//		log.info(resultPage);
-//	}
+	@Test
+	public void testRegister() throws Exception {
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/register")
+				.param("title", "컨트롤러테스트 새 글 등록")
+				.param("content", "컨트롤러테스트 내용 등록")
+				.param("writer", " 방국봉")
+				).andReturn().getModelAndView().getViewName();
+		
+		log.info(resultPage);
+	}
 		 
 		
 		

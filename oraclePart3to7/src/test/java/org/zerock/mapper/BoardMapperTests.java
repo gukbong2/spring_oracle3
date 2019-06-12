@@ -18,10 +18,10 @@ public class BoardMapperTests {
 	@Setter(onMethod_ = {@Autowired})
 	private BoardMapper mapper;
 	
-//	@Test
-//	public void testGetList() {
-//		mapper.getList().forEach(board -> log.info(board));
-//	}
+	@Test
+	public void testGetList() {
+		mapper.getList().forEach(board -> log.info(board));
+	}
 //	
 //	@Test
 //	public void testInsert() {
