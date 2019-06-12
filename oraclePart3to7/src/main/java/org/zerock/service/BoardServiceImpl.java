@@ -23,31 +23,35 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void register(BoardVO board) {
 		// TODO Auto-generated method stub
-		
+		log.info("register ..." + board);
+		mapper.insertSelectKey(board);
 	}
 
 	@Override
 	public BoardVO get(Long bno) {
-		// TODO Auto-generated method stub
-		return null;
+		log.info("===GET===" + bno);
+		return mapper.read(bno);
 	}
 
 	@Override
 	public boolean modify(BoardVO board) {
-		// TODO Auto-generated method stub
-		return false;
+		log.info("===MODIFY===" + board);
+		return mapper.update(board) == 1;
+		//정상적으로 수정과 삭제가 이루어지면 1이라는 값이 반환되기 때문에 ==를 이용해서 true/false 처리한다.
 	}
 
 	@Override
 	public boolean remove(Long bno) {
-		// TODO Auto-generated method stub
-		return false;
+		log.info("===REMOVE===" + bno);
+		return mapper.delete(bno) == 1;
+		//정상적으로 수정과 삭제가 이루어지면 1이라는 값이 반환되기 때문에 ==를 이용해서 true/false 처리한다.
 	}
 
 	@Override
 	public List<BoardVO> getList() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		log.info("===getList===");
+		return mapper.getList();
 	}
 	
 	
