@@ -51,7 +51,7 @@ public class BoardControllerTests {
 				.param("content", "컨트롤러테스트 내용 등록")
 				.param("writer", " 방국봉")
 				).andReturn().getModelAndView().getViewName();
-		
+		 
 		log.info(resultPage);
 	}
 		 
