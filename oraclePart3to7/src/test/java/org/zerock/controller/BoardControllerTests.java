@@ -44,17 +44,51 @@ public class BoardControllerTests {
 //				.getModelMap());
 //		}
 		
-	@Test
-	public void testRegister() throws Exception {
-		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/register")
-				.param("title", "컨트롤러테스트 새 글 등록")
-				.param("content", "컨트롤러테스트 내용 등록")
-				.param("writer", " 방국봉")
-				).andReturn().getModelAndView().getViewName();
-		 
-		log.info(resultPage);
-	}
-		 
+//	@Test
+//	public void testRegister() throws Exception {
+//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/register")
+//				.param("title", "컨트롤러테스트 새 글 등록")
+//				.param("content", "컨트롤러테스트 내용 등록")
+//				.param("writer", " 방국봉")
+//				).andReturn().getModelAndView().getViewName();
+//		 
+//		log.info(resultPage);
+//	}
+//	
+//	@Test
+//	public void testGet() throws Exception {
+//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/get")
+//				.param("bno", "2"))
+//				.andReturn()
+//				.getModelAndView().getModelMap());
+//				
+//	}
+	
+//	@Test
+//	public void testModify() throws Exception {
+//		
+//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/modify")
+//				.param("bno", "1")
+//				.param("title", "보드 컨트롤러 테스트 수정된 테스트 새 글 제목")
+//				.param("content", "보드 컨트롤러 테스트 수정된 테스트 새 글 내용")
+//				.param("writer", "방국봉"))
+//				.andReturn().getModelAndView().getViewName();
+//			log.info(resultPage);
+//		
+//	}
+	
+//	@Test
+//	public void testRemove() throws Exception {
+//		
+//		//삭제 전 데이터베이스에 게시물 번호 확인할 것
+//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/remove")
+//			.param("bno", "2"))
+//			.andReturn().getModelAndView().getViewName();
+//		
+//		log.info(resultPage);
+//		
+//	}
+
 		
 		
 		
