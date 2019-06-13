@@ -88,7 +88,8 @@ $(document).ready(function() {
 	  var formObj = $("form");
 	  
 	  $('button').on("click", function(e){
-	    e.preventDefault(); 
+	   
+		e.preventDefault(); 
 	    
 	    var operation = $(this).data("oper");
 	    
@@ -96,7 +97,6 @@ $(document).ready(function() {
 	    
 	    if(operation === 'remove'){
 	      formObj.attr("action", "/board/remove");
-	      
 	    }else if(operation === 'list'){
 	      self.location = "/board/list";    
 	    }

@@ -23,16 +23,16 @@
 
         <form role="form" action="/board/register" method="post">
           <div class="form-group">
-            <label>Title</label> <input class="form-control" name='title'>
+            <label>Title</label> <input class="form-control" name='title' id='title'>
           </div>
 
           <div class="form-group">
             <label>Text area</label>
-            <textarea class="form-control" rows="3" name='content'></textarea>
+            <textarea class="form-control" rows="3" name='content' id='content'></textarea>
           </div>
 
           <div class="form-group">
-            <label>Writer</label> <input class="form-control" name='writer'>
+            <label>Writer</label> <input class="form-control" name='writer' id='writer'>
           </div>
           <button type="submit" class="btn btn-default">Submit Button</button>
           <button type="reset" class="btn btn-default">Reset Button</button>
@@ -47,4 +47,6 @@
   <!-- end panel -->
 </div>
 <!-- /.row -->
+
+
 <%@include file="../includes/footer.jsp"%>

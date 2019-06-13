@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 import org.zerock.mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
@@ -47,11 +48,17 @@ public class BoardServiceImpl implements BoardService {
 		//정상적으로 수정과 삭제가 이루어지면 1이라는 값이 반환되기 때문에 ==를 이용해서 true/false 처리한다.
 	}
 
+//	@Override
+//	public List<BoardVO> getList() {
+//		
+//		log.info("===getList===");
+//		return mapper.getList();
+//	}
 	@Override
-	public List<BoardVO> getList() {
+	public List<BoardVO> getList(Criteria cri) {
+		log.info("get List with Criteria : " + cri);
 		
-		log.info("===getList===");
-		return mapper.getList();
+		return mapper.getListWithPaging(cri);
 	}
 	
 	
