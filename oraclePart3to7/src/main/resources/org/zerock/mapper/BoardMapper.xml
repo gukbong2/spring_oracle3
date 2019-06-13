@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <mapper namespace="org.zerock.mapper.BoardMapper">
  
  <select id="getList" resultType="org.zerock.domain.BoardVO">
- 	SELECT * FROM TBL_BOARD ORDER BY BNO ASC
+ 	SELECT * FROM TBL_BOARD ORDER BY BNO DESC
  </select>
  
  <insert id="insert">

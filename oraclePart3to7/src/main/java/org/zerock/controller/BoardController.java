@@ -39,9 +39,14 @@ public class BoardController {
 		//RedirectAttributes : 리다이렉트로 리턴 시 새롭게 등록 된 게시물의 bno를 같이 전달하기 위해서 사용
 	}
 	
-	@GetMapping("/get")
+	@GetMapping("/register")
+	public void register() {
+		
+	}
+	
+	@GetMapping({"/get", "/modify"})
 	public void get(@RequestParam("bno") Long bno, Model model) {
-		log.info("/get");
+		log.info("/get or modify");
 		model.addAttribute("board", service.get(bno));
 	
 	}
