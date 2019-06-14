@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <mapper namespace="org.zerock.mapper.BoardMapper">
  
  <select id="getList" resultType="org.zerock.domain.BoardVO">
- 	SELECT * FROM TBL_BOARD ORDER BY BNO DESC
+ 	SELECT * FROM TBL_BOARD
  </select>
  
  <insert id="insert">
@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  <select id="getListWithPaging"  resultType="org.zerock.domain.BoardVO">
 	<![CDATA[
-		SELECT BNO, TITLE CONTENT 
+		SELECT *
 			FROM 
 			(
 			SELECT /*+INDEX_DESC(TBL_BOARD PK_BOARD) */ 

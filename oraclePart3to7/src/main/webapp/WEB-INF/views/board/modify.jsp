@@ -23,10 +23,10 @@
 
       <form role="form" action="/board/modify" method="post">
       
+      
         <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum }"/>'>
         <input type='hidden' name='amount' value='<c:out value="${cri.amount }"/>'>
-	    <input type='hidden' name='type' value='<c:out value="${cri.type }"/>'>
-		<input type='hidden' name='keyword' value='<c:out value="${cri.keyword }"/>'>
+
       
  
 <div class="form-group">
@@ -98,7 +98,13 @@ $(document).ready(function() {
 	    if(operation === 'remove'){
 	      formObj.attr("action", "/board/remove");
 	    }else if(operation === 'list'){
-	      self.location = "/board/list";    
+			formObj.attr("action", "/board/list").attr("method", "get");
+			var pageNumTag = $("input[name='pageNum']").clone();
+			var amountTag = $("input[name='amount']").clone();
+			
+			formObj.empty();
+			formObj.append(pageNumTag);
+			formObj.append(amountTag);
 	    }
 	    formObj.submit();
 	  });
