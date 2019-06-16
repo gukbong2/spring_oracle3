@@ -36,13 +36,13 @@ public class BoardControllerTests {
 	}
 	
 	
-	@Test
-	public void testList() throws Exception {
-		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/list"))
-				.andReturn()
-				.getModelAndView()
-				.getModelMap());
-		}
+//	@Test
+//	public void testList() throws Exception {
+//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/list"))
+//				.andReturn()
+//				.getModelAndView()
+//				.getModelMap());
+//		}
 		
 //	@Test
 //	public void testRegister() throws Exception {
