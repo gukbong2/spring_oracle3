@@ -7,7 +7,7 @@ import org.zerock.domain.ReplyVO;
 
 public interface ReplyService {
 
-	public int resgister(ReplyVO vo);
+	public int register(ReplyVO vo);
 	
 	public ReplyVO get(Long rno);
 	
@@ -16,6 +16,7 @@ public interface ReplyService {
 	public int remove(Long rno);
 	
 	public List<ReplyVO> getList(Criteria cri, Long bno);
+
 	
 	
 	

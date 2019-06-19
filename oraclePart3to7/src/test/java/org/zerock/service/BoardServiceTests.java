@@ -32,7 +32,7 @@ public class BoardServiceTests {
 //		BoardVO board = new BoardVO();
 //		board.setTitle("보드서비스 테스트 글");
 //		board.setContent("보드서비스 테스트 내용");
-//		board.setWriter("보드서비스 테스트 방국봉");
+//		board.setWriter("보드서비스 테스트 방국봉22");
 //		
 //		service.register(board);
 //		
@@ -66,10 +66,11 @@ public class BoardServiceTests {
 //		board.setTitle("테스트 서비스에서 제목을 수정합니다");
 //		log.info("===MODIFY RESULT : " + service.modify(board));
 //	}
-	@Test
-	public void testGetList() {
-		service.getList(new Criteria(2, 10)).forEach(board -> log.info(board));
-	}
+	
+//	@Test
+//	public void testGetList() {
+//		service.getList(new Criteria(2, 10)).forEach(board -> log.info(board));
+//	}
 	
 	
 	

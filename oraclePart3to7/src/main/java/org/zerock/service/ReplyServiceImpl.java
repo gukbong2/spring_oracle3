@@ -21,7 +21,7 @@ public class ReplyServiceImpl implements ReplyService {
 	private ReplyMapper mapper;
 	
 	@Override
-	public int resgister(ReplyVO vo) {
+	public int register(ReplyVO vo) {
 		
 		log.info("REGISTER ... " + vo);
 		
