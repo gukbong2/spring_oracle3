@@ -91,7 +91,7 @@ $(document).ready(function() {
 
 
 
-<script type="text/javascript">
+ <script type="text/javascript">
 $(document).ready(function() {
   
 	  var operForm = $("#operForm"); 
@@ -104,14 +104,14 @@ $(document).ready(function() {
 	
 });
 
-</script>
+</script> 
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).ready(function() {
 	console.log(replyService);
 
 });
-</script>
+</script> -->
 
 <script type="text/javascript">
  console.log("===============");
@@ -119,14 +119,52 @@ $(document).ready(function() {
 
 var bnoValue = '<c:out value="${board.bno}"/>'; 
 
-//for replyService add test
+
+
+
+/* //리플 추가 테스트
  replyService.add(
     
     {reply:"JS Test", replyer:"tester", bno:bnoValue},
     function(result) { 
       alert("RESULT: " + result);
     }
-); 
+);  */
+
+
+//리플 목록 테스트
+/*  replyService.getList({bno:bnoValue, page:1}, function(list){
+     
+ 	  for(var i = 0,  len = list.length||0; i < len; i++ ){
+ 	    console.log(list[i]);
+ 	  }
+ }); */
+ 
+ //RNO 42 삭제 테스트
+/* replyService.remove(42, function(count) {
+
+	   console.log(count);
+	
+	   if (count === "success") {
+	     alert("REMOVED");
+	   }
+	 }, function(err) {
+	   alert('ERROR...');
+	 }); */
+ 
+//RNO 31 수정
+/*   replyService.update({
+  rno : 31,
+  bno : bnoValue,
+  reply : "Modified Reply...."}, 
+  	function(result) {
+
+  alert("수정 완료...");
+
+});   */
+ 
+ 
+
 	
 </script>
 

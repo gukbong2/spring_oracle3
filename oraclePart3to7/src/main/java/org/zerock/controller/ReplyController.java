@@ -77,7 +77,7 @@ public class ReplyController {
 		log.info("rno : " + rno);
 		log.info("MODIFY : " + vo);
 		
-		return service.remove(rno) == 1
+		return service.modify(vo) == 1
 				?  new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);	
 	}
