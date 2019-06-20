@@ -65,6 +65,43 @@
 </div>
 <!-- /.row -->
 
+<div class="row">
+	
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<i class="fa fa-comments fa-fw"></i>댓글
+			</div>
+			
+			<div class="panel-body">
+				
+				<ul class="chat">
+				
+				<li class="left clearfix" data-rno='12'>
+				
+					<div class="header">
+						<strong class="primary-font">user00</strong>
+						<small class="pull-right text-muted">20190620</small>
+					</div>
+					<p>good job</p>
+					
+				</li>
+				
+				</ul>
+			
+			</div>
+		</div>
+	
+	</div>
+
+
+
+
+</div>
+
+
+
+
 <script type="text/javascript">
 $(document).ready(function() {
   
@@ -103,24 +140,24 @@ $(document).ready(function() {
 	  });
 	
 });
-
 </script> 
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 $(document).ready(function() {
 	console.log(replyService);
+	
 
 });
-</script> -->
+</script> 
 
 <script type="text/javascript">
  console.log("===============");
  console.log("JS TEST");
-
 var bnoValue = '<c:out value="${board.bno}"/>'; 
 
-
-
+replyService.get(10, function(data) {
+	console.log("댓글 번호 전달 : " + data);
+})
 
 /* //리플 추가 테스트
  replyService.add(
@@ -130,8 +167,6 @@ var bnoValue = '<c:out value="${board.bno}"/>';
       alert("RESULT: " + result);
     }
 );  */
-
-
 //리플 목록 테스트
 /*  replyService.getList({bno:bnoValue, page:1}, function(list){
      
@@ -142,7 +177,6 @@ var bnoValue = '<c:out value="${board.bno}"/>';
  
  //RNO 42 삭제 테스트
 /* replyService.remove(42, function(count) {
-
 	   console.log(count);
 	
 	   if (count === "success") {
@@ -158,13 +192,10 @@ var bnoValue = '<c:out value="${board.bno}"/>';
   bno : bnoValue,
   reply : "Modified Reply...."}, 
   	function(result) {
-
   alert("수정 완료...");
-
 });   */
  
  
-
 	
 </script>
 
