@@ -65,100 +65,108 @@
 </div>
 <!-- /.row -->
 
-<div class="row">
-	
-	<div class="col-lg-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<i class="fa fa-comments fa-fw"></i>댓글
-			</div>
-			
-			<div class="panel-body">
-				
-				<ul class="chat">
-				
-				<li class="left clearfix" data-rno='12'>
-				
-					<div class="header">
-						<strong class="primary-font">user00</strong>
-						<small class="pull-right text-muted">20190620</small>
-					</div>
-					<p>good job</p>
-					
-				</li>
-				
-				</ul>
-			
-			</div>
-		</div>
-	
+
+<!-- 댓글목록 -->
+<div class='row'>
+  <div class="col-lg-12">
+
+		    <div class="panel panel-default">
+		      <div class="panel-heading">
+		      <i class="fa fa-comments fa-fw"></i> Reply
+		    </div> 
+      
+      
+      		<div class="panel-body">        
+      
+		        <ul class="chat">
+					<li class="left clearfix" data-rno='9'>
+						<div>
+							<div class="header">
+								<strong class="primary-font">user00</strong>
+								<small class="pull-right text-muted">2019-06-21 11:098</small>
+							</div>
+							<p>good job!</p>
+						</div>
+					</li>
+		        </ul>
+     		</div>
 	</div>
-
-
-
-
+  </div>
 </div>
 
 
 
 
-<script type="text/javascript">
-$(document).ready(function() {
-  
-  var operForm = $("#operForm"); 
-  
-  $("button[data-oper='modify']").on("click", function(e){
-    
-    operForm.attr("action","/board/modify").submit();
-    
-  });
-  
-    
-  $("button[data-oper='list']").on("click", function(e){
-    
-    operForm.find("#bno").remove();
-    operForm.attr("action","/board/list")
-    operForm.submit();
-    
-  });  
-});
-</script>
 
 <script type="text/javascript" src="/resources/js/reply.js"></script>
+<script type="text/javascript">
+
+/* replyService.get(9, function(data) {
+ 	console.log(data);
+}); */
+
+var bnoValue = '<c:out value="${board.bno}"/>';
+
+/* replyService.getList({bno:bnoValue, page:1}, function(list){
+    
+ 	  for(var i = 0,  len = list.length || 0; i < len; i++ ){
+ 	    console.log(list[i]);
+ 	  }
+});    */   
 
 
 
- <script type="text/javascript">
-$(document).ready(function() {
-  
-	  var operForm = $("#operForm"); 
+$(document).ready(function () {
 	  
-	  $("button[data-oper='modify']").on("click", function(e){
+	  var bnoValue = '<c:out value="${board.bno}"/>';
+	  var replyUL = $(".chat");
+	  
+	    showList(1);
 	    
-	    operForm.attr("action","/board/modify").submit();
-	    
-	  });
-	
-});
+    
+    
+ 	function showList(page){
+		
+	    replyService.getList({bno : bnoValue, page : page|| 1 }, function(list) {
+	      
+	     var str="";
+	     
+	     console.log("LIST : " + list);
+	     
+	     if(list == null || list.length == 0){
+	    	 replyUL.html("");
+	       return;
+	     }
+	     
+	     for(var i = 0,  len = list.length||0; i < len; i++ ){
+	    	 
+	    	 str +="<li class='left clearfix' data-rno='"+list[i].rno+"'>";
+	         str +="  <div><div class='header'><strong class='primary-font'>"+list[i].replyer+"</strong>"; 
+	         str +="    <samll class='pull-right text-muted'>"+list[i].replyDate+"</samll></div>";
+	         str +="      <p>"+list[i].reply+"</p></div></li>";
+	         
+	     }
+	     replyUL.html(str);
+	 
+	   });//end function
+	     
+	 }//end showList
+});  
 </script> 
 
-<script type="text/javascript">
-$(document).ready(function() {
-	console.log(replyService);
-	
 
-});
-</script> 
+
+
+
+
+
 
 <script type="text/javascript">
- console.log("===============");
+var bnoValue = '<c:out value="${board.bno}"/>';
+/*  console.log("===============");
  console.log("JS TEST");
 var bnoValue = '<c:out value="${board.bno}"/>'; 
-
-replyService.get(10, function(data) {
-	console.log("댓글 번호 전달 : " + data);
-})
-
+ */
 /* //리플 추가 테스트
  replyService.add(
     
@@ -168,12 +176,12 @@ replyService.get(10, function(data) {
     }
 );  */
 //리플 목록 테스트
-/*  replyService.getList({bno:bnoValue, page:1}, function(list){
+/*   replyService.getList({bno:bnoValue, page:1}, function(list){
      
  	  for(var i = 0,  len = list.length||0; i < len; i++ ){
  	    console.log(list[i]);
  	  }
- }); */
+ });  */
  
  //RNO 42 삭제 테스트
 /* replyService.remove(42, function(count) {
@@ -197,6 +205,28 @@ replyService.get(10, function(data) {
  
  
 	
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  
+  var operForm = $("#operForm"); 
+  
+  $("button[data-oper='modify']").on("click", function(e){
+    
+    operForm.attr("action","/board/modify").submit();
+    
+  });
+  
+    
+  $("button[data-oper='list']").on("click", function(e){
+    
+    operForm.find("#bno").remove();
+    operForm.attr("action","/board/list")
+    operForm.submit();
+    
+  });  
+});
 </script>
 
 
