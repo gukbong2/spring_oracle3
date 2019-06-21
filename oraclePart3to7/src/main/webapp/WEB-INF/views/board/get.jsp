@@ -120,9 +120,12 @@ $(document).ready(function () {
 	  
 	  var bnoValue = '<c:out value="${board.bno}"/>';
 	  var replyUL = $(".chat");
-	  
+	  //
 	    showList(1);
+		   
+
 	    
+    
     
     
  	function showList(page){
