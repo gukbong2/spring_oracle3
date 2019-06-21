@@ -73,6 +73,7 @@
 		    <div class="panel panel-default">
 		      <div class="panel-heading">
 		      <i class="fa fa-comments fa-fw"></i> Reply
+		      <button id="addReplyBtn" class="btn btn-default btn-xs pull-right">New Reply</button>
 		    </div> 
       
       
@@ -93,6 +94,50 @@
 	</div>
   </div>
 </div>
+
+
+<!-- 댓글 추가 모달 -->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+					<h4 class="modal-title" id="myModalLabel">Reply MODAL</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Reply</label>
+						<input class="form-control" name="reply" value="New Reply!">
+					</div>
+					
+					<div class="form-group">
+						<label>Replyer</label>
+						<input class="form-control" name="replyer" value="replyer">
+					</div>
+					
+					<div class="form-group">
+						<label>Reply Date</label>
+						<input class="form-control" name="replyDate" value="">
+					</div>
+					
+				</div>
+			<div class="modal-footer">
+				
+				<button type="button" id="modalModBtn" class="btn btn-warning">Modify</button>
+				<button type="button" id="modalRemoveBtn" class="btn btn-danger">Remove</button>
+				<button type="button" id="modalRemoveBtn" class="btn btn-danger">Remove</button>
+				<button type="button" id="modalRegisterBtn" class="btn btn-primary">Register</button>
+				<button type="button" id="modalCloseBtn" class="btn btn-default">Close</button>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
 
 
 
@@ -157,6 +202,25 @@ $(document).ready(function () {
 	   });//end function
 	     
 	 }//end showList
+	 
+	 var modal = $(".modal");
+	 var modalInputReply = modal.find("input[name='reply']");
+	 var modalInputReplyer = modal.find("input[name='replyer']");
+	 var modalInputReplyDate = modal.find("input[name='replyDate']");
+	 
+	 var modalModBtn = $("#modalModBtn");
+	 var modalRemoveBtn = $("#modalRemoveBtn");
+	 var modalRegisterBtn = $("#modalRegisterBtn");
+	 
+	 $("#addReplyBtn").on("click", function(e) {
+		 modal.find("input").val("");
+	 	 modalInputReplyDate.closest("div").hide();
+		 modal.find("button[id != 'modalCloseBtn']").hide();
+	 
+	 modalRegisterBtn.show();
+	 
+	 $(".modal").modal("show");
+});
 });  
 </script> 
 
