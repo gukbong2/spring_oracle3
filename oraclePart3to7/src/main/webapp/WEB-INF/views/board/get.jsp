@@ -66,33 +66,38 @@
 <!-- /.row -->
 
 
-<!-- 댓글목록 -->
 <div class='row'>
+
   <div class="col-lg-12">
 
-		    <div class="panel panel-default">
-		      <div class="panel-heading">
-		      <i class="fa fa-comments fa-fw"></i> Reply
-		      <button id="addReplyBtn" class="btn btn-default btn-xs pull-right">New Reply</button>
-		    </div> 
+    <!-- /.panel -->
+    <div class="panel panel-default">
+<!--       <div class="panel-heading">
+        <i class="fa fa-comments fa-fw"></i> Reply
+      </div> -->
+      
+      <div class="panel-heading">
+        <i class="fa fa-comments fa-fw"></i> Reply
+        <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New Reply</button>
+      </div>      
       
       
-      		<div class="panel-body">        
+      <!-- /.panel-heading -->
+      <div class="panel-body">        
       
-		        <ul class="chat">
-					<li class="left clearfix" data-rno='9'>
-						<div>
-							<div class="header">
-								<strong class="primary-font">user00</strong>
-								<small class="pull-right text-muted">2019-06-21 11:098</small>
-							</div>
-							<p>good job!</p>
-						</div>
-					</li>
-		        </ul>
-     		</div>
-	</div>
+        <ul class="chat">
+
+        </ul>
+        <!-- ./ end ul -->
+      </div>
+      <!-- /.panel .chat-panel -->
+
+	<div class="panel-footer"></div>
+
+
+		</div>
   </div>
+  <!-- ./ end row -->
 </div>
 
 
@@ -146,11 +151,13 @@
 <script type="text/javascript" src="/resources/js/reply.js"></script>
 <script type="text/javascript">
 
+var bnoValue = '<c:out value="${board.bno}"/>';
+
 /* replyService.get(9, function(data) {
  	console.log(data);
 }); */
 
-var bnoValue = '<c:out value="${board.bno}"/>';
+
 
 /* replyService.getList({bno:bnoValue, page:1}, function(list){
     
@@ -175,16 +182,26 @@ $(document).ready(function () {
     
  	function showList(page){
 		
-	    replyService.getList({bno : bnoValue, page : page|| 1 }, function(list) {
+ 		console.log("SHOW LIST : " + page);
+ 		
+	    replyService.getList({bno : bnoValue, page : page|| 1 }, function(replyCnt, list) {
 	      
+	     console.log("LIST : " + list);
+	     console.log("REPLYCNT : " + replyCnt);
+	     
+	     if(page == -1) { //page 번호가 -1로 전달이 된다면 마지막 페이지를 찾아서 다시 호출하게 됨
+	    	 pageNum = Math.ceil(replyCnt/10.0);
+	    	 showList(pageNum);
+	    	 return;
+	     }
+	     
 	     var str="";
 	     
-	     console.log("LIST : " + list);
-	     
 	     if(list == null || list.length == 0){
-	    	 replyUL.html("");
 	       return;
 	     }
+	     
+	     
 	     
 	     for(var i = 0,  len = list.length||0; i < len; i++ ){
 	    	 
@@ -198,7 +215,9 @@ $(document).ready(function () {
 	         
 	     }
 	     replyUL.html(str);
-	 
+	 	
+	     showReplyPage(replyCnt);
+	     
 	   });//end function
 	     
 	 }//end showList
@@ -213,15 +232,16 @@ $(document).ready(function () {
 	 var modalModBtn = $("#modalModBtn");
 	 var modalRemoveBtn = $("#modalRemoveBtn");
 	 var modalRegisterBtn = $("#modalRegisterBtn");
+	 var modalCloseBtn = $("#modalCloseBtn");
 	 
 	 $("#addReplyBtn").on("click", function(e) {
 		 modal.find("input").val("");
 	 	 modalInputReplyDate.closest("div").hide();
-		 modal.find("button[id != 'modalCloseBtn']").hide();
-	 
-	 modalRegisterBtn.show();
-	 
-	 $(".modal").modal("show");
+	     modal.find("button[id !='modalCloseBtn']").hide();
+	      
+	      modalRegisterBtn.show();
+	      
+	      $(".modal").modal("show");
 	 
 	});
 	 
@@ -240,7 +260,8 @@ $(document).ready(function () {
 	        modal.find("input").val("");
 	        modal.modal("hide");
 	        
-	        showList(1);
+	        //showList(1);
+	        showList(-1);
 	        
       });
 	      
@@ -275,7 +296,7 @@ $(document).ready(function () {
 		replyService.update(reply, function(result) {
 			alert(result);
 			modal.modal("hide");
-			showList(1);
+			showList(pageNum);
 			
 		});
 	});
@@ -287,15 +308,77 @@ $(document).ready(function () {
 		replyService.remove(rno, function(result) {
 			alert(result);
 			modal.modal("hide");
-			showList(1);
+			showList(pageNum);
 		
 		})
 	});
+	
+	modalCloseBtn.on("click", function(e) {
+		
+		modal.modal("hide");
+		showList(1);
+		
+	});
 	 
 	 
+	var pageNum = 1;
+    var replyPageFooter = $(".panel-footer");
+    
+    function showReplyPage(replyCnt){
+      
+      var endNum = Math.ceil(pageNum / 10.0) * 10;  
+      var startNum = endNum - 9; 
+      
+      var prev = startNum != 1;
+      var next = false;
+      
+      if(endNum * 10 >= replyCnt){
+        endNum = Math.ceil(replyCnt/10.0);
+      }
+      
+      if(endNum * 10 < replyCnt){
+        next = true;
+      }
+      
+      var str = "<ul class='pagination pull-right'>";
+      
+      if(prev){
+        str+= "<li class='page-item'><a class='page-link' href='"+(startNum -1)+"'>Previous</a></li>";
+      }
+      
+      for(var i = startNum ; i <= endNum; i++){
+        
+        var active = pageNum == i? "active":"";
+        
+        str+= "<li class='page-item "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
+      }
+      
+      if(next){
+        str+= "<li class='page-item'><a class='page-link' href='"+(endNum + 1)+"'>Next</a></li>";
+      }
+      
+      str += "</ul></div>";
+      
+      console.log(str);
+      
+      replyPageFooter.html(str);
+    }
 	 
-	 
-	 
+	
+    replyPageFooter.on("click", "li a", function(e) {
+    	e.preventDefault();
+    	console.log("page click");
+    	
+    	var targetPageNum = $(this).attr("href");
+    	
+    	console.log("targetPageNum : " + targetPageNum);
+    	
+    	pageNum = targetPageNum;
+    	
+    	showList(pageNum);
+    
+    });
+    
 	 
 });  
 </script> 

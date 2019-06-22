@@ -28,22 +28,22 @@ public class ReplyMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private ReplyMapper mapper;
 
-	@Test
-	public void testCreate() {
-
-		IntStream.rangeClosed(1, 10).forEach(i -> {
-
-			ReplyVO vo = new ReplyVO();
-
-			// 게시물의 번호
-			vo.setBno(bnoArr[i % 5]);
-			vo.setReply("댓글 테스트 " + i);
-			vo.setReplyer("replyer" + i);
-
-			mapper.insert(vo);
-		});
-
-	}
+//	@Test
+//	public void testCreate() {
+//
+//		IntStream.rangeClosed(1, 10).forEach(i -> {
+//
+//			ReplyVO vo = new ReplyVO();
+//
+//			// 게시물의 번호
+//			vo.setBno(bnoArr[i % 5]);
+//			vo.setReply("댓글 테스트 " + i);
+//			vo.setReplyer("replyer" + i);
+//
+//			mapper.insert(vo);
+//		});
+//
+//	}
 //
 //	@Test
 //	public void testRead() {
@@ -86,5 +86,17 @@ public class ReplyMapperTests {
 //	
 //	}
 
+	@Test
+	
+	public void testList2() {
+		
+		Criteria cri = new Criteria(2, 10);
+		
+		List<ReplyVO> replies = mapper.getListWithPaging(cri, 2293869L);
+		
+		replies.forEach(reply -> log.info(reply));
+	}
+	
+	
 
 }

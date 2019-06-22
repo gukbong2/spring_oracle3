@@ -24,27 +24,6 @@ var replyService = (function() {
 			}
 		})
 	}
-	
-	
-	
-	function getList(param, callback, error) {
-
-	    var bno = param.bno;
-	    var page = param.page || 1;
-	    
-	    $.getJSON("/replies/pages/" + bno + "/" + page + ".json",
-	        function(data) {
-	    	
-	          if (callback) {
-	            callback(data); // 댓글 목록만 가져오는 경우 
-	            //callback(data.replyCnt, data.list); //댓글 숫자와 목록을 가져오는 경우 
-	          }
-	        }).fail(function(xhr, status, err) {
-	      if (error) {
-	        error();
-	      }
-	    });
-	  }
 
 	
 	function remove(rno, callback, error) {
@@ -129,7 +108,21 @@ var replyService = (function() {
 		}
 	};
 	
-	
+	function getList(param, callback, error) {
+		
+		var bno = param.bno;
+		var page = param.page || 1;
+		
+		$.getJSON("/replies/pages/" + bno + "/" + page + ".json", function(data) {
+			if (callback) {
+				callback(data.replyCnt, data.list); // 댓글 숫자, 목록을 가져오는경우
+			}
+		}).fail(function(xhr, status, err) {
+			if (error) {
+				error();
+			}
+		});
+	}
 	
 	
 	return {
@@ -141,3 +134,24 @@ var replyService = (function() {
 		displayTime : displayTime
 	};
 })();
+
+
+
+
+//function getList(param, callback, error) {
+//
+//    var bno = param.bno;
+//    var page = param.page || 1;
+//    
+//    $.getJSON("/replies/pages/" + bno + "/" + page + ".json",
+//        function(data) {
+//    	
+//          if (callback) {
+//            callback(data); // 댓글 목록만 가져오는 경우 
+//          }
+//        }).fail(function(xhr, status, err) {
+//      if (error) {
+//        error();
+//      }
+//    });
+//  }
