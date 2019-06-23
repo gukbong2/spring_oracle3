@@ -9,7 +9,7 @@ import org.zerock.domain.ReplyPageDTO;
 import org.zerock.domain.ReplyVO;
 import org.zerock.mapper.ReplyMapper;
 
-import lombok.AllArgsConstructor;
+//import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
