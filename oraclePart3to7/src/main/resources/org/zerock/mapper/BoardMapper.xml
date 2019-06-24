@@ -78,14 +78,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resultType="org.zerock.domain.BoardVO">
   <![CDATA[
   SELECT 
-    BNO, TITLE, CONTENT, WRITER, REGDATE, UPDATEDATE
+    BNO, TITLE, CONTENT, WRITER, REGDATE, UPDATEDATE, REPLYCNT
   FROM 
       (
       SELECT /*+INDEX_DESC(TBL_BOARD PK_BOARD) */
-        ROWNUM RN, BNO, TITLE, CONTENT, WRITER, REGDATE, UPDATEDATE 
-      FROM 
-        TBL_BOARD
-      WHERE 
+        ROWNUM RN, BNO, TITLE, CONTENT, WRITER, REGDATE, UPDATEDATE, REPLYCNT
+      FROM TBL_BOARD
+      	WHERE 
   ]]>
 		<include refid="criteria"></include>
       
@@ -107,5 +106,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		BNO > 0
  	
  </select>
+ 
+ <update id="updateReplyCnt">
+ 	UPDATE TBL_BOARD SET REPLYCNT = REPLYCNT + #{amount}
+ 	 	where bno = #{bno}
+ 
+ </update>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  </mapper>
