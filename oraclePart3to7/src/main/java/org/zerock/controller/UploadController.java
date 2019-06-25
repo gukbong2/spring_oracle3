@@ -68,7 +68,7 @@ public class UploadController {
 				multipartFile.transferTo(saveFile);
 			} catch (Exception e) {
 				log.error(e.getMessage());
-			}
+			} 
 			
 			
 			
