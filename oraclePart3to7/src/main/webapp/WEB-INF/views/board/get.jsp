@@ -308,9 +308,10 @@ $(document).ready(function () {
 		replyService.remove(rno, function(result) {
 			alert(result);
 			modal.modal("hide");
+			
 			showList(pageNum);
-		
-		})
+			
+		});
 	});
 	
 	modalCloseBtn.on("click", function(e) {
