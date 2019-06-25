@@ -97,7 +97,7 @@
 				data : formData,
 				type : "post",
 				success : function(result) {
-					alert()
+					alert();
 				}
 			
 			
