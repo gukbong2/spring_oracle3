@@ -6,8 +6,33 @@
 <head>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 <meta charset="UTF-8">
+
+<style>
+	.uploadResult {
+	width: 100%;
+	background-color: gray;
+}
+
+.uploadResult ul {
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.uploadResult ul li {
+	list-style: none;
+	padding: 10px;
+}
+
+.uploadResult ul li img {
+	width: 100px;
+}
+</style>
+
+
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -17,10 +42,17 @@
 		<input type="file" name="uploadFile" multiple="multiple"/>
 	</div>
 	
+	
 	<button id="uploadBtn">Upload</button>
 		
+	<div class="uploadResult">
+		<ul>
 		
-	<script>
+		</ul>
+	</div>	
+		
+		
+<script>
 	
 	$(document).ready(function() {
 		
@@ -99,21 +131,60 @@
 				dataType : "json",
 				success : function(result) {
 					console.log(result);
+					
+					showUploadedFile(result);
+					
+					$(".uploadDiv").html(cloneObj.html());
+					
 				}
-			
-			
-			
-			
 			});
+		});
 		
 		
+		var cloneObj = $(".uploadDiv").clone();
+		
+		$("#uploadBtn").on("click", function(e) {
+			var formData = new FormData();
 		});
 		
 		
 		
+		var uploadResult = $(".uploadResult ul");
 		
 		
 		
+		
+		function showUploadedFile(uploadResultArr) {
+				
+				var str = "";
+				
+				$(uploadResultArr).each(function(i, obj) {
+				
+					console.log("name : " + obj.fileName);
+					console.log("uuid : " + obj.uuid);
+					console.log("uploadPath : " + obj.uploadPath);
+					console.log("image : "  + obj.image);
+					
+					if(!obj.fileName) {
+						str += "<li><img src='/resources/img/attach.png'>" + obj.fileName + "</li>";
+					} else {
+						//str += "<li>" + obj.fileName + "</li>";
+						
+						
+						var fileCallPath = encodeURIComponent( obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+						
+						console.log("fileCallPath : " + fileCallPath);
+						
+						str += "<li><img src='/display?fileName="+fileCallPath+"'><li>";
+						
+					}
+					
+					
+				});
+				
+				uploadResult.append(str);
+		} 
+		 
 		
 		
 		
@@ -126,7 +197,7 @@
 		
 	});
 	
-	</script>		
+</script>		
 		
 		
 		
@@ -143,7 +214,7 @@
 		
 		
 		
-		
+	
 		
 </body>
 </html>
