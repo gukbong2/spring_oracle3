@@ -206,8 +206,10 @@ public class UploadController {
 		
 		String resourceName = resource.getFilename();
 		
+		//UUID 삭제
+		String resourceOriginalName = resourceName.substring(resourceName.indexOf("_") + 1);
+		
 		HttpHeaders headers = new HttpHeaders();
-
 		
 		try {
 			String downloadName = null;
@@ -215,17 +217,17 @@ public class UploadController {
 			if(userAgent.contains("Trident")) {
 				log.info("=========IE BROWSER");
 				
-				downloadName = URLEncoder.encode(resourceName, "UTF-8").replaceAll("\\+", " ");
+				downloadName = URLEncoder.encode(resourceOriginalName, "UTF-8").replaceAll("\\+", " ");
 			} else if (userAgent.contains("Edge")) {
 				
 				log.info("=========== EDGE BROWSER");
 				
-				downloadName = URLEncoder.encode(resourceName, "UTF-8");
+				downloadName = URLEncoder.encode(resourceOriginalName, "UTF-8");
 				
 				log.info("EDGE NAME : " + downloadName);
 			} else {
 				log.info("Chrome browser");
-				downloadName = new String(resourceName.getBytes("UTF-8"), "ISO-8859-1");
+				downloadName = new String(resourceOriginalName.getBytes("UTF-8"), "ISO-8859-1");
 			}
 			
 			headers.add("Content-Disposition", "attachment; filename=" + downloadName);
