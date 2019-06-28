@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 
-	<style>
+<style>
 .uploadResult {
 	width: 100%;
 	background-color: gray;
@@ -169,8 +169,12 @@ width : 600px;
 						
 						var fileCallPath = encodeURIComponent(obj.uploadPath+"/" + obj.uuid + "_" + obj.fileName);
 						
-						str += "<li><a href='/download?fileName="+fileCallPath+"'>"
-						+ "<img src='/resources/img/attach.jpg'>"+obj.fileName+"</a></li>";
+						var fileLink = fileCallPath.replace(new RegExp(/\\/g), "/");
+						
+						str += "<li><div><a href='/download?fileName="+fileCallPath+"'>"
+						+ "<img src='/resources/img/attach.jpg'>"+obj.fileName+"</a>"
+						+ "span data-file=\'"+fileCallPath+"\' data-type='file'> x </span>"+"<div></li>";
+						
 					
 					} else {
 					
@@ -181,8 +185,10 @@ width : 600px;
 					    originPath = originPath.replace(new RegExp(/\\/g), "/");
 					    
 					    
-						 str += "<li><a href=\"javascript:showImage(\'"+originPath+
-								 "\')\"><img src='/display?fileName="+fileCallPath+"'></a><li>";
+					    str += "<li><a href=\"javascript:showImage(\'"+originPath+"\')\">"
+			              +"<img src='display?fileName="+fileCallPath+"'></a>"
+			              +"<span data-file=\'"+fileCallPath+"\' data-type='image'> x </span>"
+			              +"<li>";
 					}
 				});
 				
@@ -210,6 +216,23 @@ width : 600px;
 		});
 	
 		
+		$(".uploadResult").on("click", "span", function(e) {
+		
+			var targetFile = $(this).data("file");
+			var type = $(this).data("type");
+			console.log(targetFile);
+			
+			$.ajax({
+				url : "/deleteFile",
+				data : {fileName : targetFile, type : type},
+				dataType : "text",
+				type : "post",
+				success : function(result) {
+					console.log(result);
+				}
+			
+			});
+		});
 		
 		
 		
