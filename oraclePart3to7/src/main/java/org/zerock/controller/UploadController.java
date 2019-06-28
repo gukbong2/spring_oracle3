@@ -4,6 +4,8 @@ package org.zerock.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,6 +13,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.zerock.domain.AttachFileDTO;
@@ -140,9 +145,11 @@ public class UploadController {
 				attchDTO.setUuid(uuid.toString());
 				attchDTO.setUploadPath(uploadFolderPath);
 				attchDTO.setFileName(multipartFile.getOriginalFilename());
-				
+				attchDTO.setImage(true);
 				//이미지 타입 체크
 				if (checkImageType(saveFile)) {
+					
+					
 					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
 					
 					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
@@ -183,6 +190,54 @@ public class UploadController {
 		
 		return result;
 	}
+	
+	
+	@GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@ResponseBody
+	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName) {
+		log.info("=======================Download File : " + fileName);
+		
+		
+		Resource resource = new FileSystemResource("d:\\upload\\" + fileName);
+		
+		if (resource.exists() == false) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		String resourceName = resource.getFilename();
+		
+		HttpHeaders headers = new HttpHeaders();
+
+		
+		try {
+			String downloadName = null;
+			
+			if(userAgent.contains("Trident")) {
+				log.info("=========IE BROWSER");
+				
+				downloadName = URLEncoder.encode(resourceName, "UTF-8").replaceAll("\\+", " ");
+			} else if (userAgent.contains("Edge")) {
+				
+				log.info("=========== EDGE BROWSER");
+				
+				downloadName = URLEncoder.encode(resourceName, "UTF-8");
+				
+				log.info("EDGE NAME : " + downloadName);
+			} else {
+				log.info("Chrome browser");
+				downloadName = new String(resourceName.getBytes("UTF-8"), "ISO-8859-1");
+			}
+			
+			headers.add("Content-Disposition", "attachment; filename=" + downloadName);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		
+		}
+		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+	}
+
+	
+	
 	
 	
 	

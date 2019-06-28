@@ -165,7 +165,7 @@
 					console.log("uploadPath : " + obj.uploadPath);
 					console.log("image : "  + obj.image);
 					
-					if(!obj.fileName) {
+					if(!obj.image) {
 						str += "<li><img src='/resources/img/attach.png'>" + obj.fileName + "</li>";
 					} else {
 						//str += "<li>" + obj.fileName + "</li>";
