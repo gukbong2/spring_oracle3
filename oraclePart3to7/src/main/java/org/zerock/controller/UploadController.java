@@ -145,10 +145,10 @@ public class UploadController {
 				attchDTO.setUuid(uuid.toString());
 				attchDTO.setUploadPath(uploadFolderPath);
 				attchDTO.setFileName(multipartFile.getOriginalFilename());
-				attchDTO.setImage(true);
+				
 				//이미지 타입 체크
 				if (checkImageType(saveFile)) {
-					
+					attchDTO.setImage(true);
 					
 					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
 					
@@ -195,7 +195,7 @@ public class UploadController {
 	@GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	@ResponseBody
 	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName) {
-		log.info("=======================Download File : " + fileName);
+	log.info("=======================Download File : " + fileName);
 		
 		
 		Resource resource = new FileSystemResource("d:\\upload\\" + fileName);
