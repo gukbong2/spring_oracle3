@@ -228,6 +228,24 @@ width : 600px;
 		
 		  $(".uploadResult").on("click", "button", function(e) {
 			  console.log("DELETE FILE");
+			  
+			  var targetFile = $(this).data("file");
+			  var type = $(this).data("type");
+			  
+			  var targetLi = $(this).closest("li");
+			  
+			  $.ajax({
+				  url : "/deleteFile",
+			  		data : {fileName : targetFile, type : type},
+			  		dataType : "text",
+			  		type : "post",
+			  		success : function(result) {
+			  			console.log(result);
+			  			targetLi.remove();
+			  		}
+			  
+			  
+			  });
 		  });
 
 		
