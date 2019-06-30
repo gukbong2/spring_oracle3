@@ -238,7 +238,7 @@ width : 600px;
 				  url : "/deleteFile",
 			  		data : {fileName : targetFile, type : type},
 			  		dataType : "text",
-			  		type : "post",
+			  		type : "post", 
 			  		success : function(result) {
 			  			console.log(result);
 			  			targetLi.remove();
