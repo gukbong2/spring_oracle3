@@ -48,7 +48,12 @@ public class BoardController {
 		log.info("===REGISTER " + board);
 		service.register(board);
 		
-		rttr.addFlashAttribute("result", board.getBno());
+		if(board.getAttachList() != null) {
+			board.getAttachList().forEach(attach -> log.info("===========ATTACH================== : " + attach));
+		}
+		
+		//service.register(board);
+		//rttr.addFlashAttribute("result", board.getBno());
 		
 		return "redirect:/board/list";
 		//RedirectAttributes : 리다이렉트로 리턴 시 새롭게 등록 된 게시물의 bno를 같이 전달하기 위해서 사용
