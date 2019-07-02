@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.BoardAttachVO;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
@@ -54,10 +55,12 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.update(board) == 1;
 		//정상적으로 수정과 삭제가 이루어지면 1이라는 값이 반환되기 때문에 ==를 이용해서 true/false 처리한다.
 	}
-
+	
+	@Transactional
 	@Override
 	public boolean remove(Long bno) {
 		log.info("===REMOVE===" + bno);
+		attachMapper.deleteAll(bno);
 		return mapper.delete(bno) == 1;
 		//정상적으로 수정과 삭제가 이루어지면 1이라는 값이 반환되기 때문에 ==를 이용해서 true/false 처리한다.
 	}
