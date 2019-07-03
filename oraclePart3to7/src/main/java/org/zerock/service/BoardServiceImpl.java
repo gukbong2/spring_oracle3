@@ -74,7 +74,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Transactional
-	@Override
+	@Override 
 	public boolean remove(Long bno) {
 		log.info("===REMOVE===" + bno);
 		attachMapper.deleteAll(bno);
