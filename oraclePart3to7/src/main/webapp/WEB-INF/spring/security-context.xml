@@ -7,7 +7,7 @@
 
 
 <bean id="customAccessDenied" class="org.zerock.security.CustomAccessDeniedHandler"></bean>
-
+<bean id="customLoginSuccess" class="org.zerock.security.CustomLoginSuccessHandler"></bean>
 
 <security:http>
 
@@ -21,10 +21,12 @@
 
 		<security:access-denied-handler ref="customAccessDenied"/>
 
-		<security:form-login login-page="/customLogin" />
+		<security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess" />
 
-	
-	
+		<!-- <security:csrf disabled="true"/> -->
+		
+		<security:logout logout-url="/customLogout" invalidate-session="true"/>
+		
 	
 </security:http>
 
@@ -44,7 +46,6 @@
 	</security:authentication-provider>
 
 </security:authentication-manager>
-
 
 
 
